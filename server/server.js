@@ -9,6 +9,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Health check / landing route so the host doesn't 404 on the root URL.
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', service: 'mahjong-server', rooms: rooms.size });
+});
+
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {

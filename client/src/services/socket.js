@@ -12,7 +12,12 @@ class SocketService {
       return;
     }
 
-    this.socket = io('http://localhost:3001', {
+    // In production, set VITE_SOCKET_URL to your deployed server URL
+    // (e.g. https://mahjong-server.onrender.com) in Netlify's env vars.
+    // In dev it falls back to the local server / Vite proxy.
+    const serverUrl = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3001';
+
+    this.socket = io(serverUrl, {
       reconnection: true,
       reconnectionDelay: 1000,
       reconnectionAttempts: 5

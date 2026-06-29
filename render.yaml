@@ -1,0 +1,16 @@
+# Render blueprint for the Mahjong Socket.io server.
+# Render keeps a Node process alive (unlike Netlify), so the realtime
+# server lives here. After deploy, copy the service URL and set it as
+# VITE_SOCKET_URL in Netlify so the client knows where to connect.
+services:
+  - type: web
+    name: mahjong-server
+    runtime: node
+    rootDir: server
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: "20"

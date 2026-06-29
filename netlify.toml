@@ -1,0 +1,19 @@
+# Netlify configuration for the Mahjong client (static SPA).
+# The Express + Socket.io server in /server CANNOT run on Netlify —
+# deploy it separately (see render.yaml / README) and point the client
+# at it with the VITE_SOCKET_URL environment variable in Netlify's UI.
+
+[build]
+  # Build the client subfolder, not the repo root.
+  base = "client"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# SPA fallback: every route serves index.html so client-side routing works.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
